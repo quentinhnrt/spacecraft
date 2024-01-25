@@ -3,8 +3,9 @@ import React from "react";
 import {ScrollView, StyleSheet, View} from "react-native";
 import {Text} from "react-native-paper";
 import {Offline} from "~/components/Offline";
-import {SafeAreaView} from "react-native-safe-area-context";
 import {useIsConnected} from "react-native-offline";
+import {SafeAreaView} from "~/components/SafeAreaView";
+
 
 // Import <Offline /> component
 
@@ -27,7 +28,6 @@ export const ScreenContainer = ({
             <View>
                 <Offline/>
             </View>
-
             <ScrollView style={styles.container} nestedScrollEnabled={true}>
                 <Text variant="headlineMedium" style={isConnected ? styles.headerTextConnected : styles.headerText}>
                     {title}
@@ -42,14 +42,14 @@ export const ScreenContainer = ({
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 24,
-        marginTop: 36,
     },
     headerText: {
         fontWeight: "bold",
+        marginVertical: 20,
     },
     headerTextConnected: {
         fontWeight: "bold",
-        marginTop: 20
+        marginBottom: 20,
     },
     footer: {
         paddingBottom: 256,

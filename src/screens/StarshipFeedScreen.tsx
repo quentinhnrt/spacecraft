@@ -1,21 +1,12 @@
 import React from "react";
-import {StyleSheet, StatusBar, View, Text, FlatList, Image} from "react-native";
+import {StyleSheet, View, Text, FlatList} from "react-native";
 import {Card} from "react-native-paper";
 import {useStarships} from "~/hooks/useStarships";
 import {useImage} from "~/hooks/useImage";
 import {ScreenContainer} from "~/components/ScreenContainer";
-import {SafeAreaView} from "react-native-safe-area-context";
 
 export const StarshipFeedScreen = () => {
     const {isLoading, isError, data} = useStarships()
-
-    if (isLoading) {
-        return <Text>Loading...</Text>
-    }
-
-    if (isError) {
-        return <Text>Error</Text>
-    }
 
     function renderItem({item}) {
         let image = useImage(item.name)
@@ -38,11 +29,14 @@ export const StarshipFeedScreen = () => {
     return (
         <ScreenContainer title={"Starships"}>
             <View style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <SafeAreaView>
-                        <FlatList onRefresh={() => console.log("refreshData")} refreshing={false} data={data.results}
+                <View>
+                    {isLoading && <Text>Loading...</Text>}
+                    {isError && <Text>Error</Text>}
+                    {data ? (
+                        <FlatList onRefresh={() => console.log("refreshData")} refreshing={false}
+                                  data={data.results}
                                   renderItem={renderItem} keyExtractor={item => item.name}/>
-                    </SafeAreaView>
+                    ) : null}
                 </View>
             </View>
         </ScreenContainer>
@@ -53,8 +47,5 @@ export const StarshipFeedScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    headerContainer: {
-        paddingHorizontal: 20,
     },
 });
