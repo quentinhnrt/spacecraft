@@ -1,8 +1,8 @@
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from "react-native-paper";
-import Header from "../components/Header";
-import PasswordInput from "../components/PasswordInput";
+import Header from "~/components/Header";
+import PasswordInput from "~/components/PasswordInput";
 
 export default function App() {
     return (
