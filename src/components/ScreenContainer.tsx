@@ -28,13 +28,13 @@ export const ScreenContainer = ({
             <View>
                 <Offline/>
             </View>
-            <ScrollView style={styles.container} nestedScrollEnabled={true}>
-                <Text variant="headlineMedium" style={isConnected ? styles.headerTextConnected : styles.headerText}>
+            <View style={styles.container}>
+                <Text variant="headlineMedium" style={isConnected || isConnected === null ? styles.headerTextConnected : styles.headerText}>
                     {title}
                 </Text>
                 {children}
                 {withSeparatorFooter && <View style={styles.footer}/>}
-            </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };
@@ -42,14 +42,16 @@ export const ScreenContainer = ({
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 24,
+        height: "100%",
     },
     headerText: {
         fontWeight: "bold",
-        marginVertical: 20,
+        marginBottom: 20,
+        marginTop: 70
     },
     headerTextConnected: {
         fontWeight: "bold",
-        marginBottom: 20,
+        marginVertical: 20,
     },
     footer: {
         paddingBottom: 256,

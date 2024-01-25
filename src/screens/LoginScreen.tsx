@@ -17,7 +17,6 @@ export default function App() {
                     <Text className={"text-center text-white"}>Login</Text>
                 </Button>
             </View>
-            <StatusBar style="auto"/>
         </View>
     );
 }
