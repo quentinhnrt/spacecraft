@@ -4,7 +4,7 @@ import {TermsScreen} from "./src/screens/TermsScreen";
 export default function App() {
     return (
         <PaperProvider>
-            <TermsScreen />
+            <LoginScreen />
         </PaperProvider>
     );
 }
