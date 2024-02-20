@@ -1,12 +1,15 @@
 import React from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
-import { Card } from "react-native-paper";
 import { useStarships } from "~/hooks/useStarships";
 import { useImage } from "~/hooks/useImage";
 import { ScreenContainer } from "~/components/ScreenContainer";
+import StarshipCard from "~/components/StarshipCard";
+import {Button} from "react-native-paper";
+import {useAuthContext} from "~/contexts/AuthContext";
 
-export const StarshipFeedScreen = () => {
+export const StarshipFeedScreen = ({ navigation, route }: any) => {
   const { isLoading, isError, data } = useStarships();
+  const { isSignedIn, toggleIsSignedIn } = useAuthContext();
 
   function renderItem({ item }) {
     let image = useImage(item.name);
@@ -16,28 +19,23 @@ export const StarshipFeedScreen = () => {
     }
 
     return (
-      <Card className={"mb-8"}>
-        <Card.Cover source={image} />
-        <Card.Title
-          title={item.name}
-          subtitle={item.model}
-        />
-        <Card.Content>
-          <Text>
-            {item.crew +
-              " / " +
-              item.hyperdrive_rating +
-              " / $" +
-              item.cost_in_credits}
-          </Text>
-        </Card.Content>
-      </Card>
+      <StarshipCard
+        name={item.name}
+        model={item.model}
+        manufacturer={item.manufacturer}
+        cost_in_credits={item.cost_in_credits}
+        navigation={navigation}
+        image={image}
+      />
     );
   }
 
   return (
-    <ScreenContainer title={"Starships"}>
+    <ScreenContainer>
       <View style={styles.container}>
+        <Button onPress={toggleIsSignedIn} mode="contained" className={"mb-8"}>
+            <Text>Disconnect</Text>
+        </Button>
         <View>
           {isLoading && <Text>Loading...</Text>}
           {isError && <Text>Error</Text>}

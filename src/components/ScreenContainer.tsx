@@ -13,7 +13,7 @@ interface ScreenContainerProps {
 }
 
 export const ScreenContainer = ({
-  title,
+  title = false,
   children,
   withSeparatorFooter = false,
 }: ScreenContainerProps) => {
@@ -25,16 +25,18 @@ export const ScreenContainer = ({
         <Offline />
       </View>
       <View style={styles.container}>
-        <Text
-          variant="headlineMedium"
-          style={
-            isConnected || isConnected === null
-              ? styles.headerTextConnected
-              : styles.headerText
-          }
+        {title && <Text
+            variant="headlineMedium"
+            style={
+              isConnected || isConnected === null
+                  ? styles.headerTextConnected
+                  : styles.headerText
+            }
         >
           {title}
         </Text>
+        }
+
         {children}
         {withSeparatorFooter && <View style={styles.footer} />}
       </View>

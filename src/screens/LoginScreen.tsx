@@ -1,9 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import Header from "~/components/Header";
 import PasswordInput from "~/components/PasswordInput";
+import Routes from "~/navigation/Route";
+import route from "~/navigation/Route";
+import {useAuthContext} from "~/contexts/AuthContext";
 
-export default function App() {
+export default function LoginScreen({ navigation, route }: any) {
+  const { isSignedIn, toggleIsSignedIn } = useAuthContext();
+
   return (
     <View className="flex-1 bg-primary-500">
       <Header title={"SpaceCraft"} />
@@ -17,7 +22,16 @@ export default function App() {
         <View>
           <PasswordInput />
         </View>
-        <Button className={"bg-secondary-300 rounded-md py-2"}>
+        <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
+          <Text className="text-primary-300 underline">
+            by login you accept the Terms and Conditions
+          </Text>
+        </TouchableOpacity>
+
+        <Button
+          onPress={toggleIsSignedIn}
+          className={"bg-secondary-300 rounded-md py-2"}
+        >
           <Text className={"text-center text-white"}>Login</Text>
         </Button>
       </View>
@@ -27,6 +41,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   buttonUnderline: {
-    backgroundColor: "#FF9F54",
-  },
+    backgroundColor: "#FF9F54"
+  }
 });
